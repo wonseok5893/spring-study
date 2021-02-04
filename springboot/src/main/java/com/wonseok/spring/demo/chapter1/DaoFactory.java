@@ -7,8 +7,13 @@ import com.wonseok.spring.demo.chapter1.level5.UserDaoLevel5;
 
 public class DaoFactory {
     public UserDaoLevel5 userDao(){
-        ConnectionMaker connectionMaker = new DConnectionMaker();
-        UserDaoLevel5 userDaoLevel5 = new UserDaoLevel5(connectionMaker);
-        return userDaoLevel5;
+        return new UserDaoLevel5(new DConnectionMaker());
+
+    }
+    public AccountDao accountDao(){
+        return new AccountDao(new DConnectionMaker());
+    }
+    public MessageDao messageDao(){
+        return new MessageDao(new DConnectionMaker());
     }
 }
