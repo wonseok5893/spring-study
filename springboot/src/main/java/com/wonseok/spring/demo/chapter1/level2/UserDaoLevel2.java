@@ -1,11 +1,11 @@
-package com.wonseok.spring.demo.chapter1;
+package com.wonseok.spring.demo.chapter1.level2;
+
+import com.wonseok.spring.demo.chapter1.User;
 
 import java.sql.*;
 
-public abstract class UserDaoLevel3 {
+public class UserDaoLevel2 {
     public void add(User user)throws ClassNotFoundException, SQLException {
-        // getConnection을 서버클래스에서 오버라이드 하여 슈퍼클래스의 로직에 맞게 사용
-        // -> 템플릿 메소드 패턴
         Connection c = getConnection();
         PreparedStatement ps = c.prepareStatement("insert into users(id,name,password) values(?,?,?)");
         ps.setString(1,user.getId());
@@ -18,8 +18,6 @@ public abstract class UserDaoLevel3 {
         c.close();
     }
     public User get(String id)throws ClassNotFoundException, SQLException{
-        // getConnection을 서버클래스에서 오버라이드 하여 슈퍼클래스의 로직에 맞게 사용
-        // -> 템플릿 메소드 패턴
         Connection c = getConnection();
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1,id);
@@ -36,5 +34,9 @@ public abstract class UserDaoLevel3 {
         return user;
     }
 
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+    public Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/springbook","wonseok","1234");
+        return c;
+    }
 }

@@ -1,4 +1,4 @@
-package com.wonseok.spring.demo.chapter1;
+package com.wonseok.spring.demo.chapter1.level4;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

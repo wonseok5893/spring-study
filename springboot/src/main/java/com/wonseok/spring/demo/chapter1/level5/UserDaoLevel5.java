@@ -1,4 +1,4 @@
-package com.wonseok.spring.demo.chapter1;
+package com.wonseok.spring.demo.chapter1.level5;
 
 public class UserDaoLevel5 {
     private ConnectionMaker connectionMaker;

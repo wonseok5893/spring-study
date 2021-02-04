@@ -1,4 +1,6 @@
-package com.wonseok.spring.demo.chapter1;
+package com.wonseok.spring.demo.chapter1.level4;
+
+import com.wonseok.spring.demo.chapter1.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;

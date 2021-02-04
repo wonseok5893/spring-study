@@ -1,4 +1,6 @@
-package com.wonseok.spring.demo.chapter1;
+package com.wonseok.spring.demo.chapter1.level1;
+
+import com.wonseok.spring.demo.chapter1.User;
 
 import javax.xml.transform.Result;
 import java.sql.*;
