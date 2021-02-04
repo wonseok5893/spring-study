@@ -81,5 +81,18 @@
 - 해결  
     -> 클래스의 분리
 
+### UserDao
+1. level1
+    - 일반적으로 jdbc api를 사용해서 구현한 userdao
+2. level2
+    - 반복되는 코드를 리팩토링 했다.
+3. level3
+    - 팩토리 메소드 / 템플렛 메소드 패턴을 이용했다.  
+    즉 상속을 이용해서 서브클래스인 UserDaoLevel에서 슈퍼클래스의 메소드를 오버라이드해서 확장성있게 사용할수 있게 되었다.
+4. level4
+    - 상속이 아닌 클래스를 분리하면 해결이 될까?
+5. level5
+    - UserDao와 분리한 클래스 사이에 Interface를 두어 결합도를 낮추었다.
+    - UserDao와 결합된 Interface ConnectionMaker의 구현체로 무엇으로 사용했는지 UserDao는 관심이 없다. 
             
 > 전략 패턴
