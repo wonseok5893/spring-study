@@ -4,8 +4,8 @@
    ->  구체적인 클래스를 알 필요가 없음, 유지보수의 간결화
  
 #### 분리와 확장을 고려한 설계
- > SoC = 관심사의 분리 
- 프로그래밍의 기초 개념 - SoC 
+ > 프로그래밍의 기초 개념 - SoC 
+ > SoC = 관심사의 분리     
 
 #### 디자인 패턴
 > 소프트웨어 설계 시 특정상황에서 자주 만나는 문제를 해결하기 위해 사용할 수 있는 재사용 가능한 솔루션  
@@ -116,3 +116,94 @@
 > 어플리케이션 코드가 프레임워크에 의해 사용된다. 제어가 역전되었다.
 * 라이브러리
 > 라이브러리를 이용한 애플리케이션 코드는 애플리케이션을 직접 제어한다.
+
+### IOC컨테이너
+- DaoFactory 역할을 하는 BeanFactory
+-> Bean을 생성, 관계 설정
+- ApplicationContext ( IOC 컨테이너 )
+-> 빈 팩토리를 확장
+ BeanFactory의 구현체를 상속받는 ApplicationContext는 빈의 라이프 사이클을 관리하고
+ 스프링이 제공하는 각종 부가 서비스를 추가로 제공한다.
+
+※ 빈들을 관리하는 방법 Singleton Scope 또는 Prototype Scope  
+-> Prototype Scope는 컨테이너에게 빈을 요청할 때마다 새로운 객체를 생성하여 준다.
+※ Object == 와 equals는 동일성 비교, 동등성 비교라 말한다.  
+-> 일반 객체가 equals를 구현하지 않았다면 equals는 Object의 equals를 상속받아 동일성 비교를 한다.
+
+### IOC컨테이너에 빈 등록
+- 설정정보/ 설정 메타 정보
+1. Configuration 
+    <pre>
+    <code>
+    @Conifguation
+    public class DaoFactory{
+    @Bean
+    public UserDao userDao(){
+        return new UserDao(connectionMaker())
+    }
+    @Bean
+    public UserDao userDao{
+        UserDao userDao = new UserDao();
+        userDao.set(connectionMaker());
+        return userDao;
+    }
+    @Bean
+    public ConnectionMaker connectionMaker(){
+        return new DConnectionMaker();
+    }    
+    </code>
+    </pre>
+2. xml
+    <pre>
+    <code>
+    @Bean                              ----------------> < bean
+    public ConnectionMaker 
+    connectionMaker() {                ---------------> id = "connectionMaker"
+    return new DConnectionMaker()      ---------------> class = "springbook...DConnectionMaker"/>
+    }
+    </code>
+    </pre>
+    - 생성자 주입
+        
+        <pre>
+        <code>
+        @Bean                             
+        public UserDao userDao{
+        UserDao userDao = new UserDao();
+        userDao.setConnectionMaker(connectionMaker());   ---------------> <property name="connectionMaker" ref="connectionMaker"/> 
+        return userDao;                                                                   setConnectionMaker(beanId);
+        }
+        </code>
+        </pre>
+    - Setter 주입
+   
+### 스프링의 싱글톤?
+- 일반 싱글톤 패턴과 구현방법이 확연히 다르다.
+<pre>
+<code>
+    public class UserDao{
+    
+        private static UserDao userDao;
+        
+        private UserDao(){
+        }
+        private static synchronized UserDao getInstance(){
+            if(userDao==null)userDao = new UserDao(???);
+            return userDao;    
+        }
+    }
+    
+</code>
+</pre>
+
+- 일반 싱글톤 패턴의 문제점
+    1. private 생성자를 갖고있기 때문에 상속을 할 수 없다.
+    2. 테스트하기가 힘들다.
+    3. 서버를 여러개 띄운다 함은 싱글톤 객체가 여러개 만들어진다.
+    -> 그러면 이 객체를 싱글톤 객체라 할 수 있을까?
+    4. 전역상태를 만들기 때문에 모든 클래스에서 접근할 가능성이 있다.   
+- 스프링은 싱글톤 레지스트리 덕분에 싱글톤 방식으로 사용될 어플리케이션 클래스라도 public 생성자를 가질수 있다.
+
+### 의존 관계
+- 클래스나 코드에는 런타임시점의 의존관계가 드러나지 않는다.
+- 컨테이너나 팩토리 같은 3자가 런타임시에 의존관계를 결정한다. 

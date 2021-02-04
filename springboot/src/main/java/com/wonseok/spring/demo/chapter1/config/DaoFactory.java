@@ -17,4 +17,14 @@ public class DaoFactory {
     public ConnectionMaker connectionMaker(){
         return new DConnectionMaker();
     }
+    /*
+    @Bean
+    public UserDaoLevel5 userDaoLevel5(){
+        UserDaoLevel5 userDaoLevel5 = new UserDaoLevel5();
+        userDaoLevel5.setConnectionMaker(connectionMaker());
+    }
+    setter이용하여 DI를 하겠다라는 설정
+     */
+
+
 }
