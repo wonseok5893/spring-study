@@ -9,4 +9,7 @@ public class UserDaoLevel5 {
         this.connectionMaker = connectionMaker;
     }
 
+    public ConnectionMaker getConnectionMaker() {
+        return connectionMaker;
+    }
 }
