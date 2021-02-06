@@ -153,6 +153,8 @@
     }    
     </code>
     </pre>
+    
+- ApplicationContext 구현체 -> AnnotationConfigApplicationContext(//Config.class)
 2. xml
     <pre>
     <code>
@@ -176,7 +178,9 @@
         </code>
         </pre>
     - Setter 주입
-   
+- ApplicationContext 구현체  
+ 1. GenericXmlApplicationContext("클래스패스");  
+ 2. ClassXmlApplicationContext("파일위치",같은 위치에 있는 클래스);  
 ### 스프링의 싱글톤?
 - 일반 싱글톤 패턴과 구현방법이 확연히 다르다.
 <pre>
@@ -207,3 +211,8 @@
 ### 의존 관계
 - 클래스나 코드에는 런타임시점의 의존관계가 드러나지 않는다.
 - 컨테이너나 팩토리 같은 3자가 런타임시에 의존관계를 결정한다. 
+
+### DataSource Interface
+- 다양한 방법으로 DB연결과 풀링 기능을 갖춘 많은 DataSource 구현체가 존재
+- ConnectionMaker 인터페이스와 목적이 동일하게 getConnection()를 오버라이드해서 사용하면 된다.
+- 구현체 : SimpleDriverDataSource, ..

@@ -1,7 +1,8 @@
-package com.wonseok.spring.demo.chapter1;
+package com.wonseok.spring.demo.chapter1.level5;
 
 import com.wonseok.spring.demo.chapter1.level5.ConnectionMaker;
 import com.wonseok.spring.demo.chapter1.level5.DConnectionMaker;
+import com.wonseok.spring.demo.chapter1.level5.DaoFactory;
 import com.wonseok.spring.demo.chapter1.level5.UserDaoLevel5;
 
 public class UserDaoTest {
