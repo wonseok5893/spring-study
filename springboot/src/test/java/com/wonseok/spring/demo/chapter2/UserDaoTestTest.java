@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 
 import java.sql.SQLException;
@@ -56,5 +57,13 @@ class UserDaoTestTest {
         int count1 = userDao.getCount();
 
         assertEquals(count+1,count1);
+    }
+
+    @Test()
+    void 없는_사용자_아이디_조회() throws SQLException {
+        assertThrows(Exception.class,()->{
+            userDao.get("unknown_id");
+        });
+
     }
 }
