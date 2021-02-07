@@ -1,6 +1,7 @@
 package com.wonseok.spring.demo.chapter2;
 
 import com.wonseok.spring.demo.chapter1.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ class UserDaoTestTest {
 
     @Autowired
     private UserDao userDao;
+
+    @BeforeEach
+    public void before() throws SQLException {
+        userDao.deleteAll();
+    }
 
     @Test
     public void add() throws Exception{
@@ -42,7 +48,6 @@ class UserDaoTestTest {
         userDao.deleteAll();
     }
     @Test void getCount() throws SQLException {
-        deleteAll();
         int count = userDao.getCount();
 
         User user = new User("wonseok","최원석","1234");
