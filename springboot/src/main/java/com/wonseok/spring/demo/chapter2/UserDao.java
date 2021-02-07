@@ -1,6 +1,7 @@
 package com.wonseok.spring.demo.chapter2;
 
 import com.wonseok.spring.demo.chapter1.User;
+import com.wonseok.spring.demo.chapter2.exception.NotFoundUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,9 @@ public class UserDao {
     public void add(User user) throws SQLException {
         Connection c = dataSource.getConnection();
         PreparedStatement ps = c.prepareStatement("insert into users(id,name,password) values(?,?,?)");
-        ps.setString(1,user.getId());
-        ps.setString(2,user.getName());
-        ps.setString(3,user.getPassword());
+        ps.setString(1, user.getId());
+        ps.setString(2, user.getName());
+        ps.setString(3, user.getPassword());
 
         ps.executeUpdate();
 
@@ -32,20 +33,28 @@ public class UserDao {
         c.close();
     }
 
-    public User get(String id) throws SQLException {
+    public User get(String id) throws SQLException, NotFoundUserException {
+
         Connection c = dataSource.getConnection();
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
-        ps.setString(1,id);
+        ps.setString(1, id);
 
+        User user = null;
         ResultSet rs = ps.executeQuery();
-        rs.next();
-        User user = new User();
-        user.setId(rs.getString("id"));
-        user.setName(rs.getString("name"));
-        user.setPassword(rs.getString("password"));
-        rs.close();
-        ps.close();
-        c.close();
+        rs.last();
+        if (rs.getRow() == 0) throw new NotFoundUserException(id);
+        else {
+            rs.beforeFirst();
+            rs.next();
+
+            user = new User();
+            user.setId(rs.getString("id"));
+            user.setName(rs.getString("name"));
+            user.setPassword(rs.getString("password"));
+            rs.close();
+            ps.close();
+            c.close();
+        }
         return user;
     }
 

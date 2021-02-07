@@ -1,6 +1,7 @@
 package com.wonseok.spring.demo.chapter2;
 
 import com.wonseok.spring.demo.chapter1.User;
+import com.wonseok.spring.demo.chapter2.exception.NotFoundUserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -20,10 +21,10 @@ class UserDaoTestTest {
     @Autowired
     private UserDao userDao;
 
-    @BeforeEach
-    public void before() throws SQLException {
-        userDao.deleteAll();
-    }
+//    @BeforeEach
+//    public void before() throws SQLException {
+//        userDao.deleteAll();
+//    }
 
     @Test
     public void add() throws Exception{
@@ -34,7 +35,7 @@ class UserDaoTestTest {
         userDao.add(user);
     }
 
-    @Test void addAndGet() throws SQLException {
+    @Test void addAndGet() throws SQLException, NotFoundUserException {
         User user = new User();
         user.setId("wonseok2");
         user.setName("최원석");
@@ -61,8 +62,8 @@ class UserDaoTestTest {
 
     @Test()
     void 없는_사용자_아이디_조회() throws SQLException {
-        assertThrows(Exception.class,()->{
-            userDao.get("unknown_id");
+        assertThrows(NotFoundUserException.class,()->{
+            userDao.get("wonseok1");
         });
 
     }
