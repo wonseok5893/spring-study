@@ -1,0 +1,7 @@
+# spring boot가 어플리케이션 실행시 자동으로 로딩함. key - value형식으로 Spring boot에서 Environment 인터페이스 구현체를 통해 값을 가져다 쓸수 있다..
+# test ProperyTest
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
