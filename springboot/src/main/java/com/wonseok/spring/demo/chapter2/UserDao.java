@@ -43,18 +43,21 @@ public class UserDao {
         ResultSet rs = ps.executeQuery();
         rs.last();
         if (rs.getRow() == 0) throw new NotFoundUserException(id);
-        else {
-            rs.beforeFirst();
-            rs.next();
 
-            user = new User();
-            user.setId(rs.getString("id"));
-            user.setName(rs.getString("name"));
-            user.setPassword(rs.getString("password"));
-            rs.close();
-            ps.close();
-            c.close();
-        }
+        // row 0
+        rs.beforeFirst();
+        // -> rs.first() row 1 이라서 위와 같이 작성
+        rs.next();
+        // row++
+
+        user = new User();
+        user.setId(rs.getString("id"));
+        user.setName(rs.getString("name"));
+        user.setPassword(rs.getString("password"));
+        rs.close();
+        ps.close();
+        c.close();
+
         return user;
     }
 
