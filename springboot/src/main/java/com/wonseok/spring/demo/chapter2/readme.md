@@ -39,3 +39,37 @@
 - fixture
 - 테스트를 수행하는데 필요한 정보나 오브젝트
 - @Before를 이용해 미리 객체를 생성하자
+
+### 테스트 시에 컨텍스트 의존관계를 변경시에는 @DirtiesContext 
+- 클래스 레벨이나 메소드레벨에서 사용가능하다.  
+-> 의존관계를 다른 구현체로 변경하는 것은 번거롭다. 그러면?   
+    - DataSource 구현체를 컨테이너에 2개만들어 놓는다. 
+    - 기존의 xml -> test_기존의 xml로 @ContextConfiguration( locations = "test_기존의 xml" )
+    
+### 스프링 컨테이너 없는 DI테스트
+- 침투적 기술과 비침투적 기술
+- 스프링 컨테이너 없이 애플리케이션 로직을 담은 코드에 아무런 영향을 주지 않고 적용이 가능하다. -> 비침투적 기술
+<pre>
+<code>
+    public class UserDaoTest{
+        
+        UserDao userDao;
+        
+        @Before
+        public void setUp(){
+            userDao = new UserDao();
+            DataSource datasource =new SingleConnectionDataSource(
+                                            "jdbc:mysql:// ...", userId, userPassword,true);
+                                            
+            userDao.setDataSource(datasource);
+            }
+        }                                    
+</code>
+</pre>
+
+> 1. 스프링 DI를 하지 않는 테스트를 우선으로 생각하자 
+
+### 학습 테스트
+> 개발팀에서 만들어서 제공한 라이브러리 등에 대해서도 테스트를 작성해야한다.  
+> 1. 자신이 사용할 API나 프레임워크의 기능을 테스트로 보면서 사용방법을 익히려는 것  
+> 2. 사용방법을 정확하게 알고 있는지 검증         
