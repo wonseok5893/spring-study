@@ -1,6 +1,5 @@
-package com.wonseok.spring.demo.chapter3.level4;
+package com.wonseok.spring.demo.chapter3.level5;
 
-import com.wonseok.spring.demo.chapter3.level3.DeleteAllStatement;
 import com.wonseok.spring.demo.chapter3.level3.StatementStrategy;
 
 import javax.sql.DataSource;
@@ -12,23 +11,32 @@ public class UserDao {
 
     DataSource dataSource;
 
-    /**
-     * 변경하는 부분(전략 )과 변경하지 않는 부분(context)을 분리
-     */
-
-    public void deleteAll(){
-        StatementStrategy strategy = new DeleteAllStatement();
-        jdbcContextWithStatementStrategy(strategy);
+    public UserDao(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-
+    /**
+     * 익명 클래스를 이용해서 다음과 같이 사용
+     * 람다를 이용하여 사용
+     */
+    public void deleteAll(){
+        jdbcContextWithStatementStrategy(new StatementStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
+                return c.prepareStatement("delete from users");
+            }
+        });
+    }
+    public void deleteAllLevel2(){
+        jdbcContextWithStatementStrategy((Connection c)->c.prepareStatement("delete from users"));
+    }
     public void jdbcContextWithStatementStrategy(StatementStrategy strategy) {
         Connection c = null;
         PreparedStatement ps = null;
         try {
             c = dataSource.getConnection();
 
-            strategy.makePreparedStatement(c);
+            ps = strategy.makePreparedStatement(c);
 
             ps.executeUpdate();
         } catch (SQLException e) {
