@@ -17,6 +17,6 @@ class UserDaoChapter3Test {
     void add() {
         UserDao userDao = new UserDao();
         userDao.setJdbcContext(jdbcContext);
-        userDao.add(new User("wonseok","최원석","1234"));
+        userDao.add(new User("wonseok", "최원석", "1234"));
     }
 }
