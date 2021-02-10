@@ -1,6 +1,7 @@
-package com.wonseok.spring.demo.chapter3.level3;
+package com.wonseok.spring.demo.chapter3.level4;
 
-import com.wonseok.spring.demo.chapter3.level2.AbstractUserDao;
+import com.wonseok.spring.demo.chapter3.level3.DeleteAllStatement;
+import com.wonseok.spring.demo.chapter3.level3.StatementStrategy;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -11,17 +12,22 @@ public class UserDao {
 
     DataSource dataSource;
 
-    public void deleteAll() {
+    /**
+     * 변경하는 부분과 변경하지 않는 부분을 분리
+     */
+
+    public void deleteAll(){
+        StatementStrategy strategy = new DeleteAllStatement();
+        jdbcContextWithStatementStrategy(strategy);
+    }
+
+    public void jdbcContextWithStatementStrategy(StatementStrategy strategy) {
         Connection c = null;
         PreparedStatement ps = null;
         try {
             c = dataSource.getConnection();
-            /**
-             * 전략 패턴으로 구현
-             * 하지만 구현체 DeleteAllStatement를 직접 알아야한다. -> OCP에 잘 들어맞다고 볼 수 없다.
-             */
-            StatementStrategy statementStrategy = new DeleteAllStatement();
-            ps = statementStrategy.makePreparedStatement(c);
+
+            strategy.makePreparedStatement(c);
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -42,6 +48,6 @@ public class UserDao {
                 }
             }
         }
-    }
 
+    }
 }
