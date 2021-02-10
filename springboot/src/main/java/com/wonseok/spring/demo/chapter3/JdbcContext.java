@@ -43,11 +43,7 @@ public class JdbcContext {
             }
         }
     }
-
-    public void deleteAll(){
-        executeSql("delete from users"); // 변하는 sql문
-    }
-
+    
     public void executeSql(final String query){
         this.workWithStatementStrategy(c->c.prepareStatement(query));
     }
