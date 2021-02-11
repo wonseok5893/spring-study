@@ -40,4 +40,19 @@ public class CalculatorLevel3 {
         };
         return fileReadTemplate(filepath,callback);
     }
+
+    public Integer calcMultiply(String filePath) throws IOException {
+        BufferedReaderCallback callback = new BufferedReaderCallback() {
+            @Override
+            public Integer doSomethingWithReader(BufferedReader br) throws IOException {
+                Integer initValue = 1;
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    initValue *= Integer.valueOf(line);
+                }
+                return initValue;
+            }
+        };
+        return fileReadTemplate(filePath, callback);
+    }
 }
