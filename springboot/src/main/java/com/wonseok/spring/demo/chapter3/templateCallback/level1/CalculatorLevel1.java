@@ -1,4 +1,4 @@
-package com.wonseok.spring.demo.chapter3.templateCallback;
+package com.wonseok.spring.demo.chapter3.templateCallback.level1;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
