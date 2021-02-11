@@ -22,4 +22,9 @@ public class UserDao {
             return ps;
         });
     }
+
+    public void deleteAll(){
+        this.jdbcContext.executeSql("delete from users");
+    }
+
 }
