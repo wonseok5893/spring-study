@@ -13,6 +13,10 @@ public class UserDao {
         this.jdbcContext = jdbcContext;
     }
 
+    /**
+     * 템플릿 콜백 패턴 
+     * @param user
+     */
     public void add(final User user){
         this.jdbcContext.workWithStatementStrategy(c->{
             PreparedStatement ps = c.prepareStatement("insert into users(id,name,password) values(?,?,?)");
@@ -23,6 +27,9 @@ public class UserDao {
         });
     }
 
+    /**
+     * 콜백 재사용을 위한 콜백 분리
+     */
     public void deleteAll(){
         this.jdbcContext.executeSql("delete from users");
     }
