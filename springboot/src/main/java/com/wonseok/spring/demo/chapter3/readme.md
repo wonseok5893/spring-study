@@ -72,4 +72,8 @@
             assertEquals(res,"1234");
         }    
 </code>
-</pre>                
+</pre> 
+
+
+### JdbcTemplate
+> 스프링이 제공하는 템플릿/콜백 기술 -> JdbcTemplate                
