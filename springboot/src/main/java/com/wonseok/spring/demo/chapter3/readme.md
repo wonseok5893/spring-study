@@ -17,7 +17,7 @@
 
 #### UserDao 와 JdbcContext
 - 둘은 인터페이스를 사이에 두지 않고 의존관계를 맺는다.  
--> 긴밀한 관계를 가지고 강한 응집도를 가지면 직접 DI를 해도 된다.
+-> 긴밀한 관계를 가지고 강한 응집도를 가지면 직접 DI를 해도 된다.  
 
 #### UserDao -> JdbcContext -> StatementStrategy
 - 전략 패턴이 적용되었다.
@@ -76,4 +76,42 @@
 
 
 ### JdbcTemplate
-> 스프링이 제공하는 템플릿/콜백 기술 -> JdbcTemplate                
+> 스프링이 제공하는 템플릿/콜백 기술 -> JdbcTemplate
+* execute -> void;
+* query -> return;
+<pre>
+<code>
+    * 유저 수 조회
+    public int getCount(){
+        return this.jdbcTemplate.query(
+            new PreparedStatementCreator(){
+                public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
+                    return con.prepareStatement("select count(*) from users");
+                }
+            }, 
+            new ResultSetExtractor<T>(){
+                public T extractData(ResultSet rs) throws SQLException, DataAccessException {
+                    rs.next();
+                    return rs.getInt(1);
+                }    
+            });
+    }
+    
+    jdbcTemplate가 다음과 같이 정수 하나를 반환하는 메소드를 제공
+    => jdbcTemplate.queryForInt("select count(*) from users");
+    
+    * User id로 조회
+    jdbcTemplate.queryForObject("select * from Users where id = ?",
+                                 new Object[]{id}, -> sql에 바인딩할 파라미터 값, 가변인자 대신 배열을 사용한다.
+                                 new RowMapper<User>(){
+                                    public User mapRow(ResultSet rs, int rowNum){
+                                        User user = new User();
+                                        user.setId(rs.getString("id"));                                                                                                           
+                                        user.setName(rs.getString("name"));                                                                                                           
+                                        user.setPassword(rs.getString("password"));                                                                                                           
+                                        return user;
+                                    }
+                                 });   
+</code>
+</pre>                
+
