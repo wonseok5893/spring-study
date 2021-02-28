@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class WasRun extends TestCase {
+    public boolean wasSetUp;
     boolean wasRun;
 
     public WasRun(String testMethod) {
@@ -14,4 +15,8 @@ public class WasRun extends TestCase {
         wasRun = true;
     }
 
+    @Override
+    public void setUp() {
+        wasSetUp = true;
+    }
 }
