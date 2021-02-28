@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 public class WasRun extends TestCase {
     public boolean wasSetUp;
+    public String log;
     boolean wasRun;
 
     public WasRun(String testMethod) {
@@ -13,10 +14,12 @@ public class WasRun extends TestCase {
 
     public void testMethod() {
         wasRun = true;
+        log += " testMethod";
     }
 
     @Override
     public void setUp() {
         wasSetUp = true;
+        log = "setUp";
     }
 }
