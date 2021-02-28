@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestSuite {
 
-    List<WasRun> tests = new ArrayList<>();
+    List<TestCase> tests = new ArrayList<>();
 
     public void run(TestResult result) {
         tests.forEach(t->{
@@ -13,7 +13,7 @@ public class TestSuite {
         });
     }
 
-    public void add(WasRun test) {
+    public void add(TestCase test) {
         tests.add(test);
     }
 }
