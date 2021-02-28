@@ -11,6 +11,8 @@ public class TestCase {
     }
 
     public TestResult run() {
+        TestResult result = new TestResult();
+        result.testStarted();
         setUp();
         try {
             Method method = getClass().getMethod(name);
@@ -19,7 +21,7 @@ public class TestCase {
             throw new RuntimeException(e);
         }
         tearDown();
-        return new TestResult();
+        return result;
     }
 
     public void tearDown() {
