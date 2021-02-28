@@ -10,7 +10,7 @@ public class TestCase {
         this.name = testMethod;
     }
 
-    public void run() {
+    public TestResult run() {
         setUp();
         try {
             Method method = getClass().getMethod(name);
@@ -19,6 +19,7 @@ public class TestCase {
             throw new RuntimeException(e);
         }
         tearDown();
+        return new TestResult();
     }
 
     public void tearDown() {
