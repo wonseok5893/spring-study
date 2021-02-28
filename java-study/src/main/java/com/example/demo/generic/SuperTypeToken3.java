@@ -2,24 +2,20 @@ package com.example.demo.generic;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
-public class SuperTypeToken2 {
-    static class Sup<T> {
+public class SuperTypeToken3 {
+    static class Sup<T>{
         T value;
     }
-
-    // Nested Static Class = Inner class 인가?
-    static class Sub extends Sup<String> {
-    }
-
     public static void main(String[] args) {
+        // Local Class 메소드영역에서만 쓸 수 있는 클래스
+        class Sub extends Sup<List<String>>{
+
+        }
         Sub b = new Sub();
         Type t = b.getClass().getGenericSuperclass();
         ParameterizedType ptype = (ParameterizedType)t;
         System.out.println(ptype.getActualTypeArguments()[0]);
-        // eraser로 인해 제너릭 타입이 없어진다고 했는데
-        // 어떤건 없어지고 언떤건 안 없어진다.
-
-        // 상속을 할때 generic type을 가지게 된다. reflication 이라고 한다.
     }
 }
