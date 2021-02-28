@@ -1,6 +1,6 @@
 package com.example.demo.generic;
 
-public class TypeToken {
+public class TypeToken1 {
 
     static <T>T create(Class<T> clazz) throws Exception {
         return clazz.newInstance();
