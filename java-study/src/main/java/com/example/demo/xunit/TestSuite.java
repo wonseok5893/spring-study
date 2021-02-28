@@ -8,6 +8,9 @@ public class TestSuite implements Test {
 
     List<Test> tests = new ArrayList<>();
 
+    public TestSuite() {
+    }
+
     public TestSuite(Class<? extends Test> testClass) {
         Arrays.stream(testClass.getDeclaredMethods())
                 .filter(m -> m.getName().startsWith("test"))
