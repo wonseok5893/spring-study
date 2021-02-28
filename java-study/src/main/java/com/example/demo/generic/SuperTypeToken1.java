@@ -1,6 +1,6 @@
 package com.example.demo.generic;
 
-public class SuperTypeToken {
+public class SuperTypeToken1 {
 
     static class Sup<T>{
         T value;
