@@ -11,12 +11,8 @@ public class TestCase implements Test{
     }
 
     public static TestSuite suite() {
-        TestSuite suite = new TestSuite();
-        suite.add(new TestCaseTest("testTemplateMethod"));
-        suite.add(new TestCaseTest("testResult"));
-        suite.add(new TestCaseTest("testFailedResultFormatting"));
-        suite.add(new TestCaseTest("testFailedResult"));
-        suite.add(new TestCaseTest("testSuite"));
+        TestSuite suite = new TestSuite(TestCaseTest.class);
+        // 테스트 메소드 아에 test가 붙어있는 메소드를 testsuite로 하자는 관례
         return suite;
     }
 
