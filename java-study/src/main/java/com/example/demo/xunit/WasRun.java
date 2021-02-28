@@ -12,14 +12,18 @@ public class WasRun extends TestCase {
         super(testMethod);
     }
 
+
+    @Override
+    public void setUp() {
+        log = "setUp";
+    }
+
     public void testMethod() {
-        wasRun = true;
         log += " testMethod";
     }
 
     @Override
-    public void setUp() {
-        wasSetUp = true;
-        log = "setUp";
+    public void tearDown() {
+        log += " tearDown";
     }
 }
