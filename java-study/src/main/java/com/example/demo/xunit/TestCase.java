@@ -10,6 +10,16 @@ public class TestCase {
         this.name = testMethod;
     }
 
+    public static TestSuite suite() {
+        TestSuite suite = new TestSuite();
+        suite.add(new TestCaseTest("testTemplateMethod"));
+        suite.add(new TestCaseTest("testResult"));
+        suite.add(new TestCaseTest("testFailedResultFormatting"));
+        suite.add(new TestCaseTest("testFailedResult"));
+        suite.add(new TestCaseTest("testSuite"));
+        return suite;
+    }
+
     public void run(TestResult result) {
         result.testStarted();
         setUp();
