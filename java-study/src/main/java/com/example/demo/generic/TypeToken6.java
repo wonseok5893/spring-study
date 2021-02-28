@@ -21,8 +21,8 @@ public class TypeToken6 {
     public static void main(String[] args) {
         TypeToken5.TypesafeMap m = new TypeToken5.TypesafeMap();
         m.put(String.class, "Value");
-        m.put(List<Integer>.class, Arrays.asList(1, 2, 3)); // List<Integer>
-        m.put(List<String>.class, Arrays.asList("a", "b", "c")); // List<String>
+//        m.put(List<Integer>.class, Arrays.asList(1, 2, 3)); // List<Integer>
+//        m.put(List<String>.class, Arrays.asList("a", "b", "c")); // List<String>
         // 에러 발생
         // Class타입에는 generic 정보가 없다.
         // 제너릭 정보까지 Type Token 불가능
