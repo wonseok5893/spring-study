@@ -23,7 +23,7 @@ public class WasRun extends TestCase {
     }
 
     public void testBrokenMethod() {
-        new AssertionError();
+       throw new AssertionError();
     }
     @Override
     public void tearDown() {
