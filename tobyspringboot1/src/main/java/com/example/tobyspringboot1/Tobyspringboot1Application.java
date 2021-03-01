@@ -13,6 +13,11 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 @SpringBootApplication
 public class Tobyspringboot1Application {
     public static void main(String[] args) {
@@ -22,11 +27,10 @@ public class Tobyspringboot1Application {
         ac.publishEvent(new MyEvent(ac,"TobySpringBoot Event"));
     }
 
-    @EventListener
+    @MyEventListener
     public void onMyEvent(MyEvent event) {
-        System.out.println("Hello My Event: "+event.getMessage());
+        System.out.println("Hello My Event");
     }
-    // 이벤트를 다루고 싶을 땐 파라미터로 받으면 된다.
 
     static class MyEvent extends ApplicationEvent {
 
@@ -40,5 +44,12 @@ public class Tobyspringboot1Application {
         public String getMessage() {
             return message;
         }
+    }
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @EventListener // 내가 만든 EventListener 에도 붙여서 사용,
+    public @interface MyEventListener {
+
     }
 }
