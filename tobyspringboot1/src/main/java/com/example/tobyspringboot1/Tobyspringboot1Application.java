@@ -21,11 +21,6 @@ public class Tobyspringboot1Application {
     //이제는 @Configuration이 붙지 않아도 @Bean 등록 가능 / 하지만 동작방식이 다르다
     @Bean
     public CommandLineRunner myClRunner() {
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... args) throws Exception {
-                System.out.println("Hello AnnonyMous CommandLineRunner!!!");
-            }
-        };
+        return args -> System.out.println("Hello AnnonyMous CommandLineRunner!!!");
     }
 }
