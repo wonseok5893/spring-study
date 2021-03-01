@@ -23,33 +23,11 @@ public class Tobyspringboot1Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext ac = SpringApplication.run(Tobyspringboot1Application.class, args);
         //가장 low 레벨의 ApplicationContext
-
-        ac.publishEvent(new MyEvent(ac,"TobySpringBoot Event"));
+        //순서: startedEvent -> CommandRunner -> ApplicationRunner -> readyEvent
     }
 
-    @MyEventListener
-    public void onMyEvent(MyEvent event) {
-        System.out.println("Hello My Event");
-    }
-
-    static class MyEvent extends ApplicationEvent {
-
-        private final String message;
-
-        public MyEvent(Object source, String message) {
-            super(source);
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-    }
-
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    @EventListener // 내가 만든 EventListener 에도 붙여서 사용,
-    public @interface MyEventListener {
-
+    @EventListener(ApplicationReadyEvent.class)
+    public void onMyEvent() {
+        System.out.println("Application Ready!!!");
     }
 }
