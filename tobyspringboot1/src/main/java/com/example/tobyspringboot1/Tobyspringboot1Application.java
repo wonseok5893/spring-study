@@ -20,15 +20,12 @@ public class Tobyspringboot1Application {
     //인라인으로 빈을 정의하는 방법
     //이제는 @Configuration이 붙지 않아도 @Bean 등록 가능 / 하지만 동작방식이 다르다
     @Bean
-    public MyClRunner myClRunner() {
-        return new MyClRunner();
-    }
-}
-
-class MyClRunner implements CommandLineRunner{
-
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("Hello CommandLineRunner");
+    public CommandLineRunner myClRunner() {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                System.out.println("Hello AnnonyMous CommandLineRunner!!!");
+            }
+        };
     }
 }
