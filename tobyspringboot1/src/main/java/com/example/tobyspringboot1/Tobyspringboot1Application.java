@@ -5,6 +5,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -12,11 +15,17 @@ import org.springframework.stereotype.Component;
 @SpringBootApplication
 public class Tobyspringboot1Application {
     public static void main(String[] args) {
-        SpringApplication.run(Tobyspringboot1Application.class, args);
-    }
+       ConfigurableApplicationContext ac = SpringApplication.run(Tobyspringboot1Application.class, args);
+       //가장 low 레벨의 ApplicationContext
+       ac.addApplicationListener(new ApplicationListener<ApplicationEvent>() {
+           @Override
+           public void onApplicationEvent(ApplicationEvent event) {
+               System.out.println("Hello ApplicationEvent: " + event);
+           }
+       });
+       ac.publishEvent(new ApplicationEvent(ac) {
+       });
+       // 이벤트를 던져줌
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void init() {
-        System.out.println("Hello ApplicationReadyEvent");
     }
 }
