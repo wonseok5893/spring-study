@@ -22,16 +22,12 @@ public class Tobyspringboot1Application {
         ac.publishEvent(new MyEvent(ac,"TobySpringBoot Event"));
     }
 
-    @EventListener(MyEvent.class)
-    public void onMyEvent() {
-        System.out.println("Hello My Event");
+    @EventListener
+    public void onMyEvent(MyEvent event) {
+        System.out.println("Hello My Event: "+event.getMessage());
     }
+    // 이벤트를 다루고 싶을 땐 파라미터로 받으면 된다.
 
-    @EventListener(MyEvent.class)
-    public void onMyEvent2() {
-        System.out.println("Hello My Event2");
-    }
-    // Event는 -> MutiCast 하게 모든 listener에게 날라간다. 순서 보장x-> @Order 로 처리
     static class MyEvent extends ApplicationEvent {
 
         private final String message;
