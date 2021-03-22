@@ -6,10 +6,14 @@
 ### 
 > 1장. 
 > 스프링 프레임워코는 무엇에 관심을 가지고 만들었나?  
-    - 오브젝트와 그 관계 
+    - [오브젝트와 그 관계](./src/main/java/com/wonseok/spring/demo/chapter1/readme.md) 
 
 > 2장.
 > 테스트의 중요성  
-    - 개발자를 안심 시켜주는 테스트의 중요성과 작성 방법 
+    - [개발자를 안심 시켜주는 테스트의 중요성과 작성 방법](./src/main/java/com/wonseok/spring/demo/chapter2/readme.md)  
+
+> 3장.
+> [템플릿]  
+    - [템플릿을 활용한 DAO 구현](./src/main/java/com/wonseok/spring/demo/chapter3/readme.md) 
  
 ### ref) 토비의 스프링 Vol.1
