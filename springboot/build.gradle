@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.wonseok.spring'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -15,6 +15,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'junit:junit:4.12'
 	runtimeOnly 'com.h2database:h2'
 	implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
